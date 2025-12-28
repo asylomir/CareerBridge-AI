@@ -31,7 +31,7 @@ The system processes data through a three-stage pipeline:
 
 
 
-### **Getting Started**
+### **How to install**
 1.  Clone this repository.
 2.  Install required libraries: `pip install openai python-dotenv fpdf`
 3.  Create a `.env` file and add your `OPENAI_API_KEY`.
