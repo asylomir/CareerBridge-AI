@@ -6,7 +6,7 @@ The **AI Recruitment Matcher** is a Python-based automation tool designed to str
 * **For Job Seekers:** Audit your own resume against a target role to identify specific skill gaps and optimize your application before submission.
 
 ### **Key Features**
-* **Semantic Matching Engine:** Evaluates the "hidden" connection between past experiences and new requirements using GPT-4o-mini.
+* **Semantic Matching:** Evaluates the connection between past experiences and requirements using GPT-4o-mini.
 * **Automated PDF Reporting:** Instantly generates a clean, professional `Career_Match_Report.pdf` summarizing the analysis.
 * **Gap Identification:** Pinpoints exactly which technical or soft skills are missing from a candidate's profile.
 * **Actionable Advice:** Provides a "Roadmap" for how to improve the resume.
