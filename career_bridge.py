@@ -1,60 +1,66 @@
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
+from fpdf import FPDF
 
-# 1. Load the secret API key from your .env file
+# 1. Load API Key
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def analyze_career_path():
+def create_pdf_report(analysis_text):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", 'B', 16)
+    pdf.cell(200, 10, txt="AI Recruitment Match Analysis", ln=True, align='C')
+    
+    pdf.set_font("Arial", size=12)
+    pdf.ln(10) # Add a line break
+    
+    # Clean up the text for PDF (handling potential encoding issues)
+    clean_text = analysis_text.encode('latin-1', 'ignore').decode('latin-1')
+    pdf.multi_cell(0, 10, txt=clean_text)
+    
+    pdf.output("Career_Match_Report.pdf")
+    print("\n✅ PDF Report Generated: Career_Match_Report.pdf")
+
+def analyze_match():
     try:
-        # 2. Read your Resume (cv.txt)
         with open("cv.txt", "r") as f:
             my_resume = f.read()
-
-        # 3. Read the Job Description (job.txt)
         with open("job.txt", "r") as f:
             target_job = f.read()
 
-        print("--- Analyzing the Bridge between Business and AI... ---")
+        print("--- Analyzing Match and Generating Report... ---")
 
-        # 4. The 'Prompt' - This tells the AI how to think
+        # General HR Instructions
         instructions = f"""
-        You are a Career Strategist specializing in the transition from 
-        traditional Business roles to AI & Sustainable Societies roles.
+        You are an expert Executive Recruiter. 
+        Analyze the match between this CV and Job Description.
+        
+        CV: {my_resume}
+        JOB: {target_job}
 
-        COMPARE THE FOLLOWING:
-        RESUME: {my_resume}
-        JOB DESCRIPTION: {target_job}
-
-        PROVIDE THE FOLLOWING IN A CLEAR FORMAT:
-        1. SUSTAINABILITY MATCH SCORE: (A percentage 0-100%)
-        2. THE BUSINESS ADVANTAGE: (How the candidate's BBA/Western Union background 
-           helps them in this specific AI role?)
-        3. TECHNICAL GAPS: (List 3 technical skills the candidate should learn 
-           during a Master's program like AISS).
-        4. PHILOSOPHICAL BRIDGE: (A 2-sentence vision on how this person can 
-           make AI more 'human' or 'fair' based on their background).
+        Provide your response in this exact format:
+        1. MATCH SCORE: (Percentage)
+        2. TOP MATCHING SKILLS: (List the strongest overlaps)
+        3. CRITICAL SKILL GAPS: (What is missing?)
+        4. RESUME IMPROVEMENT ADVICE: (Specific tips to get this job)
         """
 
-        # 5. Call the OpenAI API
         response = client.chat.completions.create(
-            model="gpt-4o-mini",  # Fast, cheap, and smart
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": instructions}],
-            temperature=0.7 # Makes the response more creative/insightful
+            temperature=0.5
         )
 
-        # 6. Output the result to your terminal
-        print("\n==============================================")
-        print("          CAREER BRIDGE AI ANALYSIS           ")
-        print("==============================================\n")
-        print(response.choices[0].message.content)
-        print("\n==============================================")
+        analysis_result = response.choices[0].message.content
+        print(analysis_result)
+        
+        # Generate the PDF
+        create_pdf_report(analysis_result)
 
-    except FileNotFoundError:
-        print("Error: Make sure cv.txt and job.txt are in the same folder!")
     except Exception as e:
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    analyze_career_path()
+    analyze_match()
