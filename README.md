@@ -7,9 +7,11 @@ The **AI Recruitment Matcher** is a Python-based automation tool designed to str
 
 ### **Key Features**
 * **Semantic Matching:** Evaluates the connection between past experiences and requirements using GPT-4o-mini.
-* **Automated PDF Reporting:** Instantly generates a clean, professional `Career_Match_Report.pdf` summarizing the analysis.
+* **Automated PDF Reporting:** Instantly generates a clean, professional `Career_Match_Report.pdf` summarizing the analysis. Example:
 * **Gap Identification:** Pinpoints exactly which technical or soft skills are missing from a candidate's profile.
 * **Actionable Advice:** Provides a "Roadmap" for how to improve the resume.
+* 
+  ![122F5CF0-146F-4E6C-BD4B-25EFA8FC4986](https://github.com/user-attachments/assets/ba117675-9662-4efc-b859-31104f8ba58d)
 
 ### **Technical Stack**
 * **Core Logic:** Python 3
@@ -21,12 +23,13 @@ The **AI Recruitment Matcher** is a Python-based automation tool designed to str
 The system processes data through a three-stage pipeline:
 1.  **Ingestion:** Reads raw text from `cv.txt` and `job.txt`.
 2.  **Analysis:** The AI compares the two datasets, focusing on skills, responsibility levels, and industry-specific terminology.
-3.  **Export:** Results are printed to the console and saved as a formatted PDF report.
+![C7BA19CA-13BD-4035-B1D9-83F51F6133A4](https://github.com/user-attachments/assets/aae11c81-19e7-46d7-9cca-b14ec6458975)
+
+4.  **Export:** Results are printed to the console and saved as a formatted PDF report.
+![D03C398F-5D4C-4F61-AB04-048114826A3A_1_105_c](https://github.com/user-attachments/assets/54cfafef-0e64-4b64-b36e-7fac98eabb4f)
 
 ### **How to install**
 1.  Clone this repository.
 2.  Install required libraries: `pip install openai python-dotenv fpdf`
 3.  Create a `.env` file and add your `OPENAI_API_KEY`.
 4.  Run the application: `python3 career_bridge.py`
-
-*Developed as a demonstration of AI-driven automation in Human Resources.*
